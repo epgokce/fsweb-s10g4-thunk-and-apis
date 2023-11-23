@@ -12,7 +12,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const API = "https://dog.ceo/api/breeds/image/random";
+export const API = "https://www.boredapi.com/api/activity";
 
 export default function App() {
   const loading = useSelector((store) => store.loading);
@@ -39,7 +39,7 @@ export default function App() {
   useEffect(() => {
     dispatch(fetchAnother());
     dispatch(getFavsFromLocalStorage());
-  }, []);
+  }, [dispatch]);
 
 
   return (
