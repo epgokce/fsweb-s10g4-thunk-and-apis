@@ -11,7 +11,7 @@ const initial = {
   favs: [],
   current: null,
   error: null,
-  loading: true,
+  loading: false,
 };
 
 function writeFavsToLocalStorage(favs) {
