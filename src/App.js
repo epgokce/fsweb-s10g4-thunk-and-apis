@@ -12,12 +12,13 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const API = "https://www.boredapi.com/api/activity";
+export const API = "https://dog.ceo/api/breeds/image/random";
 
 export default function App() {
-  const loading = false;
-  const current = null;
-  const favs = [];
+  const loading = useSelector((store) => store.loading);
+  const current = useSelector((store) => store.current);
+  const favs = useSelector((store) => store.favs);
+  const error = useSelector((store) => store.error);
 
   function addToFavs() {
     dispatch(addFav(current));
@@ -43,6 +44,13 @@ export default function App() {
 
   return (
     <div className="wrapper max-w-xl mx-auto px-4">
+      <ToastContainer
+        autoClose={2000}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover= {false}
+        theme="colored"
+      />
       <nav className="flex text-2xl pb-6 pt-8 gap-2 justify-center">
         <NavLink
           to="/"
@@ -63,7 +71,11 @@ export default function App() {
 
       <Switch>
         <Route exact path="/">
-          {loading && <div className="bg-white p-6 text-center shadow-md">YÜKLENİYOR</div>}
+          {loading && (<div className="bg-white p-6 text-center shadow-md">YÜKLENİYOR</div>)}{error && (
+            <div className="bg-white p-6 text-center shadow-md text-2xl text-blue-800">
+              {error}!
+            </div>
+          )}
           {current && <Item data={current} />}
 
           <div className="flex gap-3 justify-end py-3">
@@ -85,12 +97,12 @@ export default function App() {
         <Route path="/favs">
           <div className="flex flex-col gap-3">
             {favs.length > 0
-              ? favs.map((item) => (
+              ? ( favs.map((item) => (
                 <FavItem key={item.key} id={item.key} activity={item.activity}
                 deleteFav={deleteFav} />
               ))
-              : <div className="bg-white p-6 text-center shadow-md">Henüz bir favoriniz yok</div>
-            }
+              ) : (<div className="bg-white p-6 text-center shadow-md">Henüz bir favoriniz yok</div>
+            )}
           </div>
         </Route>
       </Switch>

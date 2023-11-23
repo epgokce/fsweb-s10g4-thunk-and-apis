@@ -15,7 +15,7 @@ const initial = {
 };
 
 function writeFavsToLocalStorage(favs) {
-  localStorage.setItem("s10g4", JSON.stringify(state.favs));
+  localStorage.setItem("s10g4", JSON.stringify(favs));
 }
 
 function readFavsFromLocalStorage() {
